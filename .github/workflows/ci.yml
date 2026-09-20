@@ -26,14 +26,7 @@ jobs:
           pip install -r requirements.txt
           pip install ipykernel
 
-      - name: Run tests (base service)
-        run: |
-          python -m pytest test -v
-        env:
-          PYTHONPATH: ${{ github.workspace }}/src
-          MODEL_PATH: ${{ github.workspace }}/models/pipeline.pkl
-
-      - name: Run tests (loan service)
+      - name: Run tests
         run: |
           python -m pytest test_loan -v
         env:

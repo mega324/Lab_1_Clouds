@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ipykernel
+
+      - name: Run tests (base service)
+        run: |
+          python -m pytest test -v
+        env:
+          MODEL_PATH: ./models/pipeline.pkl
+
+      - name: Run tests (loan service)
+        run: |
+          python -m pytest test_loan -v
+        env:
+          MODEL_PATH: ./models/pipeline.pkl

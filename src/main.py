@@ -46,4 +46,4 @@ def healthcheck() -> dict[str, str]:
 @app.post("/predictions")
 async def predictions(instance: Instance,
                       token: str = Depends(check_token)) -> dict[str, float]:
-    return make_inference(load_model(model_path), instance.dict())
+    return make_inference(load_model(model_path), instance.model_dump())

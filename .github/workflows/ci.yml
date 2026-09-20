@@ -30,10 +30,12 @@ jobs:
         run: |
           python -m pytest test -v
         env:
-          MODEL_PATH: ./models/pipeline.pkl
+          PYTHONPATH: ${{ github.workspace }}/src
+          MODEL_PATH: ${{ github.workspace }}/models/pipeline.pkl
 
       - name: Run tests (loan service)
         run: |
           python -m pytest test_loan -v
         env:
-          MODEL_PATH: ./models/pipeline.pkl
+          PYTHONPATH: ${{ github.workspace }}/src_loan
+          MODEL_PATH: ${{ github.workspace }}/models/pipeline.pkl
